@@ -1,5 +1,5 @@
-#include "../MexTK/mex.h"
-#include "events.h"
+#include "../../../MexTK/mex.h"
+#include "../../events.h"
 
 #define CPU_LEFT_STAGE_POS_X 70.f
 #define CPU_LEFT_DIRECTION -1.f

@@ -1,0 +1,43 @@
+#include "../../events.h"
+#include "ledgedash_meta.h"
+
+static EventMatchData Ledgedash_MatchData = {
+    .timer = MATCH_TIMER_HIDE,
+    .matchType = MATCH_MATCHTYPE_TIME,
+    .isDisableMusic = false,
+    .hideGo = true,
+    .hideReady = true,
+    .isCreateHUD = false,
+    .isDisablePause = true,
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = false,
+    .isCheckForZRetry = false,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
+
+    .isRunStockLogic = false,
+    .isDisableHit = false,
+    .useKOCounter = false,
+    .playerKind = -1,
+    .cpuKind = -1,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
+};
+EventDesc Ledgedash = {
+    .eventName = "Ledgedash Training\n",
+    .eventDescription = "Practice Ledgedashes!\nUse D-Pad to change ledge.\n",
+    .eventFile = "ledgedash",
+    .CSSType = SLCHRKIND_EVENT,
+    .isSelectStage = true,
+    .use_savestates = false,
+    .disable_hazards = true,
+    .force_sopo = true,
+    .scoreType = 0,
+    .callbackPriority = 15,
+    .matchData = &Ledgedash_MatchData,
+    .defaultOSD = 0xFFFFFFFF,
+};

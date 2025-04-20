@@ -111,6 +111,7 @@ GeneralTech:
     bl 0x0              # LCancel
     bl 0x0              # Ledgedash
     bl 0x0              # Wavedash
+    bl 0x0              # EmptyEvent
     bl ComboTraining
     bl AttackOnShield
     bl Reversal

@@ -1,3 +1,4 @@
+#pragma once
 #include "../MexTK/mex.h"
 
 #define TM_VERSSHORT "TM-CE v1.2 d3"

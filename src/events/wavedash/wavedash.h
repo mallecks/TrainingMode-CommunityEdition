@@ -1,5 +1,5 @@
-#include "../MexTK/mex.h"
-#include "events.h"
+#include "../../../MexTK/mex.h"
+#include "../../events.h"
 
 #define TEXT_SCALE 4.2
 #define WDJOBJ_TEXT 6

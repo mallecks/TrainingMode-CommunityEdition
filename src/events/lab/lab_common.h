@@ -1,5 +1,6 @@
-#include "../MexTK/mex.h"
-#include "events.h"
+#pragma once
+#include "../../../MexTK/mex.h"
+#include "../../events.h"
 
 // Labbing event
 // Custom TDI definitions

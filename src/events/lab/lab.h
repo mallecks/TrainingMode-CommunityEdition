@@ -1,3 +1,4 @@
+#pragma once
 #include "lab_common.h"
 
 // DECLARATIONS #############################################

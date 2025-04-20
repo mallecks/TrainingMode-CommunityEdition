@@ -1,5 +1,6 @@
 @echo off
 setlocal
+setlocal enabledelayedexpansion
 
 REM set directory to location of this file. Needed when drag n dropping across directories.
 cd /d %~dp0
@@ -35,43 +36,50 @@ if not exist "TM-CE.iso" (
 
 echo BUILD C FILES --------------------------------------------------------
 
+REM Dynamically generate header inclusion for events
+> src/generated_include_meta.h (
+    for /D %%D in (src\events\*) do (
+        echo #include "events/%%~nxD/%%~nxD_meta.h"
+    )
+)
+
+set META_FILES=
+    for /D %%D in (src\events\*) do (
+        set META_FILES=!META_FILES! "src/events/%%~nxD/%%~nxD_meta.c"
+    )
+
+
 mkdir build
 
 echo build event menu
 copy "dats\eventMenu.dat" "build\eventMenu.dat"
-"MexTK/MexTK.exe" -ff -i "src/events.c" -b "build" -s tmFunction -dat "build/eventMenu.dat" -t "MexTK/tmFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'events.c' & goto cleanup )
+"MexTK/MexTK.exe" -ff -i "src/events.c" "src/event_data.c" !META_FILES! -b "build" -s tmFunction -dat "build/eventMenu.dat" -t "MexTK/tmFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'events.c' & goto cleanup )
 "MexTK/MexTK.exe" -trim "build/eventMenu.dat" || ( echo ERROR: Dat file trimming failed & goto cleanup )
 
-echo build lab event
-copy "dats\lab.dat" "build\lab.dat"
-"MexTK/MexTK.exe" -ff -i "src/lab.c" -b "build" -s evFunction -dat "build/lab.dat" -t "MexTK/evFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'lab.c' & goto cleanup)
-"MexTK/MexTK.exe" -trim "build/lab.dat" || ( echo ERROR: Dat file trimming failed & goto cleanup )
-
 echo build lab css
-copy "dats\labCSS.dat" "build\labCSS.dat"
-"MexTK/MexTK.exe" -ff -i "src/lab_css.c" -b "build" -s cssFunction -dat "build/labCSS.dat" -t "MexTK/cssFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'lab_css.c' & goto cleanup)
+copy "src\events\lab\labCSS.dat" "build\labCSS.dat"
+"MexTK/MexTK.exe" -ff -i "src/events/lab/lab_css.c" -b "build" -s cssFunction -dat "build/labCSS.dat" -t "MexTK/cssFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'lab_css.c' & goto cleanup)
 "MexTK/MexTK.exe" -trim "build/labCSS.dat" || ( echo ERROR: Dat file trimming failed & goto cleanup )
 
-echo build lcancel event
-copy "dats\lcancel.dat" "build\lcancel.dat"
-"MexTK/MexTK.exe" -ff -i "src/lcancel.c" -b "build" -s evFunction -dat "build/lcancel.dat" -t "MexTK/evFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'lcancel.c' & goto cleanup)
-"MexTK/MexTK.exe" -trim "build/lcancel.dat" || ( echo ERROR: Dat file trimming failed & goto cleanup )
+REM Loop for compiling the events written in c
+for /D %%D in (src\events\*) do (
+    REM Build event if it has a c file
+    if exist "src/events/%%~nxD/%%~nxD.c" (
+       echo build %%~nxD event
 
-echo build ledgedash event
-copy "dats\ledgedash.dat" "build\ledgedash.dat"
-"MexTK/MexTK.exe" -ff -i "src/ledgedash.c" -b "build" -s evFunction -dat "build/ledgedash.dat" -t "MexTK/evFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'ledgedash.c' & goto cleanup)
-"MexTK/MexTK.exe" -trim "build/ledgedash.dat" || ( echo ERROR: Dat file trimming failed & goto cleanup )
+       REM Copy dat file if it exists
+       if exist "src/events/%%~nxD/%%~nxD.dat" (
+         copy "src\events\%%~nxD\%%~nxD.dat" "build\%%~nxD.dat"
+       )
 
-echo build wavedash event
-copy "dats\wavedash.dat" "build\wavedash.dat"
-"MexTK/MexTK.exe" -ff -i "src/wavedash.c" -b "build" -s evFunction -dat "build/wavedash.dat" -t "MexTK/evFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'wavedash.c' & goto cleanup)
-"MexTK/MexTK.exe" -trim "build/wavedash.dat" || ( echo ERROR: Dat file trimming failed & goto cleanup )
-
-echo build powershield event
-"MexTK/MexTK.exe" -ff -i "src/powershield.c" -b "build" -s evFunction -dat "build/powershield.dat" -t "MexTK/evFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'powershield.c' & goto cleanup)
-"MexTK/MexTK.exe" -trim "build/powershield.dat" || ( echo ERROR: Dat file trimming failed & goto cleanup )
-
+      "MexTK/MexTK.exe" -ff -i "src/events/%%~nxD/%%~nxD.c" -b "build" -s evFunction -dat "build/%%~nxD.dat" -t "MexTK/evFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile '%%~nxD.c' & goto cleanup)
+      "MexTK/MexTK.exe" -trim "build/%%~nxD.dat" || ( echo ERROR: Dat file trimming failed & goto cleanup )
+    )
+)
 echo BUILD ASM FILES --------------------------------------------------------
+
+REM dynamically generate the asm code for the event pages and set their lengths
+
 
 del "Additional ISO Files\codes.gct"
 cd "Build TM Codeset"
@@ -103,22 +111,23 @@ gc_fst read %ISO% "Start.dol" "Start.dol"
 del Start.dol
 
 echo BUILD ISO --------------------------------------------------------
-gc_fst fs TM-CE.iso ^
-	delete MvHowto.mth ^
-	delete MvOmake15.mth ^
-	delete MvOpen.mth ^
-	insert TM\eventMenu.dat build\eventMenu.dat ^
-	insert TM\lab.dat build\lab.dat ^
-	insert TM\labCSS.dat build\labCSS.dat ^
-	insert TM\lcancel.dat build\lcancel.dat ^
-	insert TM\ledgedash.dat build\ledgedash.dat ^
-	insert TM\wavedash.dat build\wavedash.dat ^
-	insert TM\powershield.dat build\powershield.dat ^
-	insert codes.gct build\codes.gct ^
-	insert Start.dol build\Start.dol ^
-	insert opening.bnr build\opening.bnr
-gc_fst set-header TM-CE.iso "GTME01" "Training Mode Community Edition"
 
+REM It is assumed that dats in build directory are events and that those specific
+REM files do not have an insert order. This method was used to preserve the order
+REM of the other commands. If a dat file needs to be loaded before/after other
+REM dat files, the loop needs updated to included it at the correct spot
+
+set GC_FST_CMD=delete MvHowto.mth delete MvOmake15.mth delete MvOpen.mth
+
+    for %%F in (build\*.dat) do (
+            set GC_FST_CMD=!GC_FST_CMD! insert TM\%%~nxF build\%%~nxF
+    )
+
+set GC_FST_CMD=!GC_FST_CMD! insert codes.gct build\codes.gct insert Start.dol build\Start.dol insert opening.bnr build\opening.bnr
+
+gc_fst fs TM-CE.iso !GC_FST_CMD!
+
+gc_fst set-header TM-CE.iso "GTME01" "Training Mode Community Edition"
 
 echo ############ TM-CE.iso has been created ######################
 

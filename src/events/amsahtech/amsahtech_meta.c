@@ -1,0 +1,42 @@
+#include "../../events.h"
+
+static EventMatchData AmsahTech_MatchData = {
+    .timer = MATCH_TIMER_COUNTUP,
+    .matchType = MATCH_MATCHTYPE_TIME,
+    .isDisableMusic = true,
+    .hideGo = true,
+    .hideReady = true,
+    .isCreateHUD = true,
+    .isDisablePause = false,
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
+
+    .isRunStockLogic = false,
+    .isDisableHit = false,
+    .useKOCounter = false,
+    .playerKind = -1,
+    .cpuKind = 9,
+    .stage = -1,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
+};
+EventDesc AmsahTech = {
+    .eventName = "Amsah-Tech Training\n",
+    .eventDescription = "Taunt to have Marth Up-B,\nthen ASDI down and tech!\n",
+    .eventFile = 0,
+    .CSSType = SLCHRKIND_EVENT,
+    .isSelectStage = true,
+    .use_savestates = false,
+    .disable_hazards = true,
+    .force_sopo = false,
+    .scoreType = 0,
+    .callbackPriority = 3,
+    .matchData = &AmsahTech_MatchData,
+    .defaultOSD = 0xFFFFFFFF,
+};

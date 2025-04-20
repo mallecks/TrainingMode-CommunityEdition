@@ -1,0 +1,42 @@
+#include "../../events.h"
+
+static EventMatchData Ledgestall_MatchData = {
+    .timer = MATCH_TIMER_COUNTUP,
+    .matchType = MATCH_MATCHTYPE_TIME,
+    .isDisableMusic = true,
+    .hideGo = true,
+    .hideReady = true,
+    .isCreateHUD = true,
+    .isDisablePause = false,
+    .timerRunOnPause = false,
+    .isHidePauseHUD = true,
+    .isShowLRAStart = true,
+    .isCheckForLRAStart = true,
+    .isShowZRetry = true,
+    .isCheckForZRetry = true,
+    .isShowAnalogStick = true,
+    .isShowScore = false,
+
+    .isRunStockLogic = false,
+    .isDisableHit = false,
+    .useKOCounter = false,
+    .playerKind = -1,
+    .cpuKind = -1,
+    .stage = 6,
+    .timerSeconds = 0,
+    .timerSubSeconds = 0,
+};
+EventDesc Ledgestall = {
+    .eventName = "Under Fire\n",
+    .eventDescription = "Ledgestall to remain\ninvincible while the lava rises!\n",
+    .eventFile = 0,
+    .CSSType = SLCHRKIND_EVENT,
+    .isSelectStage = false,
+    .use_savestates = false,
+    .disable_hazards = true,
+    .force_sopo = false,
+    .scoreType = 0,
+    .callbackPriority = 3,
+    .matchData = &Ledgestall_MatchData,
+    .defaultOSD = 0xFFFFFFFF,
+};
