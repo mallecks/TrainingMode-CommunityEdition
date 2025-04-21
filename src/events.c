@@ -3375,7 +3375,7 @@ char *GetTMCompile()
 }
 int GetPageNum()
 {
-    int pageNum = (sizeof(EventPages) / 4) - 1;
+    int pageNum = eventPageSize;
     return (pageNum);
 }
 u8 GetCSSType(int page, int event)
