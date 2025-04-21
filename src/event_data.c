@@ -1,6 +1,6 @@
 #include "events.h"
 #include "event_data.h"
-#include "generated_include_meta.h"
+#include "../build/generated_include_meta.h"
 ///////////////////////
 /// Page Defintions ///
 ///////////////////////

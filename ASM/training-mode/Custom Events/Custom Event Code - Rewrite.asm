@@ -164,10 +164,7 @@ EventNoExist:
 ## Minigames ##
 ###############
 
-.include "../../../src/events/eggs/eggs.asm"
-.include "../../../src/events/multishine/multishine.asm"
-.include "../../../src/events/reaction/reaction.asm"
-.include "../../../src/events/ledgestall/ledgestall.asm"
+
 
 
 
@@ -197,27 +194,13 @@ LedgeCliffIDs:
     .long 0x06100005                                    # Kongo Jungle 64, Battlefield
     .long 0x00020101                                    # Final Destination
 
-.include "../../../src/events/sdi/sdi.asm"
-.include "../../../src/events/reversal/reversal.asm"
-.include "../../../src/events/shielddrop/shielddrop.asm"
-.include "../../../src/events/attackonshield/attackonshield.asm"
-.include "../../../src/events/ledgetech/ledgetech.asm"
-.include "../../../src/events/amsahtech/amsahtech.asm"
-.include "../../../src/events/combo/combo.asm"
-.include "../../../src/events/waveshinesdi/waveshinesdi.asm"
-.include "../../../src/events/slideoff/slideoff.asm"
-.include "../../../src/events/grabmash/grabmash.asm"
-
-
+.include "../../../build/generated_include_events.asm"
 
 ##############
 ## Fox Tech ##
 ##############
 
-.include "../../../src/events/techcounter/techcounter.asm"
-.include "../../../src/events/armadashine/armadashine.asm"
-.include "../../../src/events/sidebsweet/sidebsweet.asm"
-.include "../../../src/events/escapeshiek/escapeshiek.asm"
+
 
 
 

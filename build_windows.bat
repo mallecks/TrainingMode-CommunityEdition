@@ -36,10 +36,12 @@ if not exist "TM-CE.iso" (
 
 echo BUILD C FILES --------------------------------------------------------
 
+mkdir build
+
 REM Dynamically generate header inclusion for events
-> src/generated_include_meta.h (
+> build/generated_include_meta.h (
     for /D %%D in (src\events\*) do (
-        echo #include "events/%%~nxD/%%~nxD_meta.h"
+        echo #include "../src/events/%%~nxD/%%~nxD_meta.h"
     )
 )
 
@@ -48,8 +50,6 @@ set META_FILES=
         set META_FILES=!META_FILES! "src/events/%%~nxD/%%~nxD_meta.c"
     )
 
-
-mkdir build
 
 echo build event menu
 copy "dats\eventMenu.dat" "build\eventMenu.dat"
@@ -78,9 +78,14 @@ for /D %%D in (src\events\*) do (
 )
 echo BUILD ASM FILES --------------------------------------------------------
 
-REM dynamically generate the asm code for the event pages and set their lengths
-
-
+REM Dynamically generate asm inclusion for events
+> build/generated_include_events.asm (
+    for /R src\events %%F in (*.asm) do (
+        for %%D in (%%~dpF.) do (
+            echo .include "../src/events/%%~nxD/%%~nxD.asm"
+        )
+    )
+)
 del "Additional ISO Files\codes.gct"
 cd "Build TM Codeset"
 echo gecko.exe build
@@ -135,10 +140,10 @@ echo ############ TM-CE.iso has been created ######################
 
 echo CLEANUP -----------------------------------------------------------------
 
-if exist "build" (
-    echo deleting build dir...
-    rmdir /s /q build\
-)
+@REM if exist "build" (
+@REM     echo deleting build dir...
+@REM     rmdir /s /q build\
+@REM )
 
 :end
 
