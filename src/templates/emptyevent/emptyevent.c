@@ -32,12 +32,20 @@ void Event_Init(GOBJ *gobj)
 
     return;
 }
+
+// Update Function
+void Event_Update(){
+
+    return;
+}
+
 // Think Function
 void Event_Think(GOBJ *event)
 {
 
     return;
 }
+
 // Not required, but provides an exit option in the event menu
 void Event_Exit()
 {

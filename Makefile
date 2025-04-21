@@ -32,6 +32,10 @@ build/eventMenu.dat: src/events.c src/events.h
 	cp "dats/eventMenu.dat" "build/eventMenu.dat" 
 	$(MEX_BUILD) -i "src/events.c" -s "tmFunction" -dat "build/eventMenu.dat" -t "MexTK/tmFunction.txt"
 
+build/labCSS.dat: src/lab_css.c src/lab_common.h src/events.h
+	cp "dats/labCSS.dat" "build/labCSS.dat"
+	$(MEX_BUILD) -i "src/lab_css.c" -s "cssFunction" -dat "build/labCSS.dat" -t "MexTK/cssFunction.txt"
+
 build/lab.dat: src/lab.c src/lab.h src/lab_common.h src/events.h
 	cp "dats/lab.dat" "build/lab.dat"
 	$(MEX_BUILD) -i "src/lab.c" -s "evFunction" -dat "build/lab.dat" -t "MexTK/evFunction.txt"

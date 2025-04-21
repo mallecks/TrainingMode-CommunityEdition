@@ -77,24 +77,36 @@ You'll need to right click on the node -> Open As -> JOBJ in HSDRaw in order to 
 
 ## How To Do Things
 
-- If you want to alter an event written in C (easy):
-    - The training lab, lcancel, ledgedash, wavedash, and powershield events are written in c.
-    This makes them much easier to modify than the other events. Poke around in their source in `src/`.
-- If you want to alter an event written in asm (big knowledge check):
-    - You will need to know a bit of Power PC asm.
-    - Read `ASM/Readme.md`
-    - Go to `ASM/training-mode/Custom Events/Custom Event Code - Rewrite.asm` and search for the event you want to modify.
-    - These will A LOT trickier to modify than the other events. Prefer making a new event or modifying the lab.
-    - There are a lot of random loads from random offsets there. Grep for that address in MexTK/include to see where it points.
-    Feel free to put a comment there indicating the source!
-- If you want to make a new event (tricky, but super flexible):
-    - Add a file and header to the `src/`.
-    - Add the required compilation steps in `Makefile` and `build_windows.bat`. Follow the same structure as the other events. Be sure to use the evFunction mode. You can skip the dat copy if you don't have any models attached to the event (you won't), like the powershield event.
-    - Add the `EventDesc` and `EventMatchData` structs to `events.c` and add a reference to them in the `General_Events`, `Minigames_Events`, or `Spacie_Events` array.
-    - Add a `.long 0` spacer word to the event jump list table (right after the `EventJumpTable` macro) for the page the event will be on in `Custom Event Code - Rewrite.asm`.
-    - In `ASM/training-mode/Global.s`, increment `X.NumOfEvents` (where X is the name of the page it's on).
-    - Implement the `Event_Init`, `Event_Update`, `Event_Think` methods and `Event_Menu` pointer in your c file. Poke around the other events to figure out how the data flows.
-    - Also, increment the event index for each legacy event on that page so they are pushed down in the menu.
+- Modifying Events:
+  - The event code has been modularized. The goal was to separate all logic specific to a single event into discrete, normalized locations. 
+  - Find the event's folder in src/events modify them as desired.
+    - There are "c" events and "asm" events. Modifying an asm event is more complicated and it is preferred that a new event is created or the lab is modified.
+    - If you modify an asm event, there are often loads from arbitrary offsets. You can find the address by grepping MexTK/include. Feel free to put a comment indicating the source!
+- Add a new event:
+  - The build scripts were modified to assume that naming conventions are followed. If you add an event that does not conform, you may need to update the build scripts to avoid issues.
+  - Create event files
+    - src/events/\*
+      - all events - metadata files containing event menu information
+        - src/events/\*/\*_meta.h
+        - src/events/\*/\*_meta.c
+      - c events
+        - src/events/\*/\*.c
+        - src/events/\*/\*.h 
+      - asm events
+        - src/events/\*/\*.asm
+    - Template
+      - An "empty" template was added. This is an event that contains very limited logic and can be used as a basic starting point to adding an event.
+      - Assuming no "empty" event exists in the event directory, the "empty" template directory and be directly copied to the events directory as a working starting point. All objects/files/directories should be renamed matching convention to avoid conflicts using the templates.
+  - Add event to menu
+    - src/event_data.c
+      - Add a reference for the EventDesc from *_meta.h to an EventDesc array 
+  - Update hardcoded ASM values
+    - TODO: Update code to avoid ASM hardcoding or at least avoid editing the files directly
+    - ASM/Global.s
+      - Increment <page>.NumOfEvents as appropriate
+      - Increment each event index below the new event
+    - ASM/training-mode/Custom Events/Custom Event Code - Rewrite.asm
+      - Add a `.long 0` spacer word to the event jump list table for the appropriate page
 - If you want to create a new OSD (hard):
     - You will need to know a lot of Power PC asm.
     - You will need to find the function that does the processing of the value you want to measure (reach out to me if you're not sure how to find this).

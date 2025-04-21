@@ -40,20 +40,21 @@ mkdir build
 
 REM Dynamically generate header inclusion for events
 > build/generated_include_meta.h (
+    echo // Auto-generated include list
     for /D %%D in (src\events\*) do (
         echo #include "../src/events/%%~nxD/%%~nxD_meta.h"
     )
 )
 
-set META_FILES=
+> build/generated_include_meta.c (
+    echo // Auto-generated include list
     for /D %%D in (src\events\*) do (
-        set META_FILES=!META_FILES! "src/events/%%~nxD/%%~nxD_meta.c"
+        echo #include "../src/events/%%~nxD/%%~nxD_meta.c"
     )
-
-
+)
 echo build event menu
 copy "dats\eventMenu.dat" "build\eventMenu.dat"
-"MexTK/MexTK.exe" -ff -i "src/events.c" "src/event_data.c" !META_FILES! -b "build" -s tmFunction -dat "build/eventMenu.dat" -t "MexTK/tmFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'events.c' & goto cleanup )
+"MexTK/MexTK.exe" -ff -i "src/events.c" "src/event_data.c" "build/generated_include_meta.c" -b "build" -s tmFunction -dat "build/eventMenu.dat" -t "MexTK/tmFunction.txt" -q -ow -l "MexTK/melee.link" -op 2 || ( echo ERROR: Failed to compile 'events.c' & goto cleanup )
 "MexTK/MexTK.exe" -trim "build/eventMenu.dat" || ( echo ERROR: Dat file trimming failed & goto cleanup )
 
 echo build lab css
