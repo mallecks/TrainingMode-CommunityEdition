@@ -1,6 +1,6 @@
 .PHONY: clean iso all release
 
-dats = build/ledgedash.dat build/wavedash.dat build/lcancel.dat build/labCSS.dat build/eventMenu.dat build/lab.dat build/powershield.dat
+dats = build/eventMenu.dat build/labCSS.dat  build-events
 
 # find all .asm and .s files in the ASM dir. We have the escape the spaces, so we pipe to sed
 ASM_FILES := $(shell find ASM -type f \( -name '*.asm' -o -name '*.s' \) | sed 's/ /\\ /g')
@@ -28,38 +28,48 @@ clean:
 	rm -rf TM-CE.iso
 	rm -rf ./build/
 
-build/eventMenu.dat: src/events.c src/events.h
-	cp "dats/eventMenu.dat" "build/eventMenu.dat" 
-	$(MEX_BUILD) -i "src/events.c" -s "tmFunction" -dat "build/eventMenu.dat" -t "MexTK/tmFunction.txt"
+build/eventMenu.dat: src/events.c src/events.h src/event_data.c
+	@echo "//Auto-generated include list" > build/generated_include_meta.c; \
+    for dir in src/events/*; do \
+		base=$$(basename $$dir); \
+		if [ -f "$$dir/$${base}_meta.c" ]; then \
+		  echo "#include \"../src/events/$$base/$${base}_meta.c\"" >> build/generated_include_meta.c; \
+		fi; \
+	done
+	@echo "//Auto-generated include list" > build/generated_include_meta.h; \
+    for dir in src/events/*; do \
+		base=$$(basename $$dir); \
+		if [ -f "$$dir/$${base}_meta.h" ]; then \
+		  echo "#include \"../src/events/$$base/$${base}_meta.h\"" >> build/generated_include_meta.h; \
+		fi; \
+	done
+	cp "dats/eventMenu.dat" "build/eventMenu.dat"
+	$(MEX_BUILD) -i "src/events.c" "src/event_data.c" "build/generated_include_meta.c" -s "tmFunction" -dat "build/eventMenu.dat" -t "MexTK/tmFunction.txt"
 
-build/labCSS.dat: src/lab_css.c src/lab_common.h src/events.h
-	cp "dats/labCSS.dat" "build/labCSS.dat"
-	$(MEX_BUILD) -i "src/lab_css.c" -s "cssFunction" -dat "build/labCSS.dat" -t "MexTK/cssFunction.txt"
+build/labCSS.dat: src/events/lab/lab_css.c src/events/lab/lab_common.h src/events.h
+	cp "src/events/lab/labCSS.dat" "build/labCSS.dat"
+	$(MEX_BUILD) -i "src/events/lab/lab_css.c" -s "cssFunction" -dat "build/labCSS.dat" -t "MexTK/cssFunction.txt"
 
-build/lab.dat: src/lab.c src/lab.h src/lab_common.h src/events.h
-	cp "dats/lab.dat" "build/lab.dat"
-	$(MEX_BUILD) -i "src/lab.c" -s "evFunction" -dat "build/lab.dat" -t "MexTK/evFunction.txt"
-
-build/labCSS.dat: src/lab_css.c src/lab_common.h src/events.h
-	cp "dats/labCSS.dat" "build/labCSS.dat"
-	$(MEX_BUILD) -i "src/lab_css.c" -s "cssFunction" -dat "build/labCSS.dat" -t "MexTK/cssFunction.txt"
-
-build/lcancel.dat: src/lcancel.c src/lcancel.h src/events.h
-	cp "dats/lcancel.dat" "build/lcancel.dat"
-	$(MEX_BUILD) -i "src/lcancel.c" -s "evFunction" -dat "build/lcancel.dat" -t "MexTK/evFunction.txt"
-
-build/ledgedash.dat: src/ledgedash.c src/ledgedash.h src/events.h
-	cp "dats/ledgedash.dat" "build/ledgedash.dat"
-	$(MEX_BUILD) -i "src/ledgedash.c" -s "evFunction" -dat "build/ledgedash.dat" -t "MexTK/evFunction.txt"
-
-build/wavedash.dat: src/wavedash.c src/wavedash.h src/events.h
-	cp "dats/wavedash.dat" "build/wavedash.dat"
-	$(MEX_BUILD) -i "src/wavedash.c" -s "evFunction" -dat "build/wavedash.dat" -t "MexTK/evFunction.txt"
-
-build/powershield.dat: src/powershield.c src/events.h
-	$(MEX_BUILD) -i "src/powershield.c" -s "evFunction" -dat "build/powershield.dat" -t "MexTK/evFunction.txt"
+build-events: src/events.h
+	@for dir in src/events/*; do \
+		base=$$(basename $$dir); \
+		if [ -f "$$dir/$$base.c" ]; then \
+			if [ -f "$$dir/$$base.dat" ]; then \
+			  echo "Copying src/events/$$base/$$base.dat to build/$$base.dat"; \
+			  cp "src/events/$$base/$$base.dat" "build/$$base.dat"; \
+			fi;\
+			$(MEX_BUILD) -i "src/events/$$base/$$base.c" -s "evFunction" -dat "build/$$base.dat" -t "MexTK/evFunction.txt"; \
+		fi; \
+	done
 
 build/codes.gct: Additional\ ISO\ Files/opening.bnr $(ASM_FILES)
+	@echo "#Auto-generated include list" > build/generated_include_events.asm; \
+    for dir in src/events/*; do \
+		base=$$(basename $$dir); \
+		if [ -f "$$dir/$$base.asm" ]; then \
+		  echo ".include \"../src/events/$$base/$$base.asm\"" >> build/generated_include_events.asm; \
+		fi; \
+	done
 	cd "Build TM Codeset" && ./gecko build
 	cp Additional\ ISO\ Files/* build/
 
@@ -68,22 +78,16 @@ build/Start.dol: | build
 	xdelta3 -d -f -s build/Start.dol "Build TM Start.dol/$(PATCH)" build/Start.dol
 
 TM-CE.iso: build/Start.dol build/codes.gct $(dats)
-	if [[ ! -f TM-CE.iso ]]; then cp ${iso} TM-CE.iso; fi
-	./gc_fst fs TM-CE.iso \
-		delete MvHowto.mth \
-		delete MvOmake15.mth \
-		delete MvOpen.mth \
-		insert TM/eventMenu.dat build/eventMenu.dat \
-		insert TM/lab.dat build/lab.dat \
-		insert TM/labCSS.dat build/labCSS.dat \
-		insert TM/lcancel.dat build/lcancel.dat \
-		insert TM/ledgedash.dat build/ledgedash.dat \
-		insert TM/wavedash.dat build/wavedash.dat \
-		insert TM/powershield.dat build/powershield.dat \
-		insert codes.gct build/codes.gct \
-		insert Start.dol build/Start.dol \
-		insert opening.bnr build/opening.bnr
-	./gc_fst set-header TM-CE.iso "GTME01" "Training Mode Community Edition"
+	@GC_FST_CMD="delete MvHowto.mth delete MvOmake15.mth delete MvOpen.mth"; \
+    for f in $(wildcard build/*.dat); do \
+        base=$$(basename $$f); \
+        GC_FST_CMD="$$GC_FST_CMD insert TM/$$base $$f"; \
+    done; \
+    GC_FST_CMD="$$GC_FST_CMD insert codes.gct build/codes.gct insert Start.dol build/Start.dol insert opening.bnr build/opening.bnr";\
+	if [[ ! -f TM-CE.iso ]]; then cp ${iso} TM-CE.iso; fi ;\
+	echo ./gc_fst fs TM-CE.iso $$GC_FST_CMD ;\
+	./gc_fst fs TM-CE.iso $$GC_FST_CMD ;\
+	./gc_fst set-header TM-CE.iso "GTME01" "Training Mode Community Edition";
 
 build:
 	mkdir -p build

@@ -159,18 +159,9 @@ SkipPageList:
 EventNoExist:
     b exit
 
-###############
-## Minigames ##
-###############
-
-
-
-
-
-
 
 ##################
-## General Tech ##
+##    Events    ##
 ##################
 
 LedgeCliffIDs:
@@ -193,16 +184,9 @@ LedgeCliffIDs:
     .long 0x06100005                                    # Kongo Jungle 64, Battlefield
     .long 0x00020101                                    # Final Destination
 
+# This is a dynamically generated file from the build script that
+# contains a list of includes to all of the individual asm events
 .include "../../../build/generated_include_events.asm"
-
-##############
-## Fox Tech ##
-##############
-
-
-
-
-
 
 ###############
 ## P1 STRUCT ##

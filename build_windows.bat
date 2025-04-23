@@ -81,6 +81,7 @@ echo BUILD ASM FILES --------------------------------------------------------
 
 REM Dynamically generate asm inclusion for events
 > build/generated_include_events.asm (
+    echo #Auto-generated include list
     for /R src\events %%F in (*.asm) do (
         for %%D in (%%~dpF.) do (
             echo .include "../src/events/%%~nxD/%%~nxD.asm"
