@@ -142,10 +142,10 @@ echo ############ TM-CE.iso has been created ######################
 
 echo CLEANUP -----------------------------------------------------------------
 
-@REM if exist "build" (
-@REM     echo deleting build dir...
-@REM     rmdir /s /q build\
-@REM )
+if exist "build" (
+    echo deleting build dir...
+    rmdir /s /q build\
+)
 
 :end
 
