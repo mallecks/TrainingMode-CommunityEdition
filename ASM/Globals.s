@@ -12,9 +12,6 @@
     .set Time, 0x1
 
     ##################################
-    # Number of Events
-    .set Minigames.NumOfEvents, 4 -1
-
     .set Event_Eggs, 0
     # Event Name
     .macro Event_Eggs_Name
@@ -104,10 +101,6 @@
     .endm
 
     .set EventOSD_LedgeStall, 0x00000000
-
-
-    # Number of Events
-    .set GeneralTech.NumOfEvents, 13 -1
 
     # Event List
     .set Event_Combo, 4
@@ -304,10 +297,6 @@
 
     .set EventOSD_GrabMashOut, 0x00000000
 
-
-    # Number of Events
-    .set SpacieTech.NumOfEvents, 4 -1
-
     # Event List
     .set Event_LedgetechCounter, 0
     # Event Name
@@ -396,21 +385,6 @@
     bl Minigames
     bl GeneralTech
     bl SpacieTech
-    .endm
-
-    .macro EventAmountPerPage
-Minigames:
-    .long Minigames.NumOfEvents
-    .align 2
-
-GeneralTech:
-    .long GeneralTech.NumOfEvents
-    .align 2
-
-SpacieTech:
-    .long SpacieTech.NumOfEvents
-    .align 2
-
     .endm
 
     .macro EventNameStrings
@@ -507,16 +481,6 @@ SpacieTech:
     Event_SideBSweetspot_PlayableCharacters
     Event_EscapeSheik_PlayableCharacters
     .byte -1
-    .align 2
-
-    .endm
-
-    .macro EventHighScores
-EventHighScores:
-    blrl
-    .byte 0
-    .byte Minigames.NumOfEvents +1
-    .byte Minigames.NumOfEvents + GeneralTech.NumOfEvents +1
     .align 2
 
     .endm
@@ -713,6 +677,7 @@ InitSettings:
     .set TM_OnStartMelee, TM_OnBoot + 0x4
     .set TM_OnFileLoad, TM_OnStartMelee + 0x4
     .set TM_MessageDisplay, TM_OnFileLoad + 0x4
+    .set TM_GetHighScorePageOffset, TM_MessageDisplay + 0x4
 
     # TmDt Data Pointers
     .set TM_Data, TM_tmFunction - 0x4

@@ -66,3 +66,13 @@ EventPage **EventPages[] = {
 };
 
 int eventPageSize = (sizeof(EventPages)/sizeof(EventPages[0])) - 1;
+
+
+int GetHighScorePageOffset(int pageID) {
+    int eventIndex = 0;
+    for(int i = 0;i < pageID; i++){ // Add the number of events for each previous page
+        EventPage *thisPage = EventPages[i];
+        eventIndex += (thisPage->eventNum) + 1;
+    }
+    return eventIndex;
+}
