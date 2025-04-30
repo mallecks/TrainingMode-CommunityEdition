@@ -63,6 +63,62 @@ static bool did_player_miss_lcancel[2] = {false, false};
 
 // Menu Callbacks
 
+RecInputData *Lab_GetAlteringRecording(void) {
+    int ply = LabOptions_SlotManagement[OPTSLOT_PLAYER].option_val;
+    int slot = LabOptions_SlotManagement[OPTSLOT_SRC].option_val;
+    int frame_idx = LabOptions_AlterInputs[OPTINPUT_FRAME].option_val - 1;
+    RecInputData **rec_list = ply == PLAYER_HMN ? rec_data.hmn_inputs : rec_data.cpu_inputs;
+    return rec_list[slot];
+}
+
+RecInputs *Lab_GetAlteringInputs(void) {
+    RecInputData *rec = Lab_GetAlteringRecording();
+    int frame_idx = LabOptions_AlterInputs[OPTINPUT_FRAME].option_val - 1;
+    return &rec->inputs[frame_idx];
+}
+
+void Lab_ChangeAlterInputsFrame(GOBJ *menu_gobj, int value) {
+    Lab_SetAlterInputsMenuOptions(menu_gobj);
+}
+
+int Lab_SetAlterInputsMenuOptions(GOBJ *menu_gobj) {
+    RecInputData *rec = Lab_GetAlteringRecording();
+    int frame = LabOptions_AlterInputs[OPTINPUT_FRAME].option_val;
+    if (rec->num < frame)
+        rec->num = frame;
+
+    RecInputs *inputs = Lab_GetAlteringInputs();
+    LabOptions_AlterInputs[OPTINPUT_LSTICK_X].option_val = inputs->stickX;
+    LabOptions_AlterInputs[OPTINPUT_LSTICK_Y].option_val = inputs->stickY;
+    LabOptions_AlterInputs[OPTINPUT_CSTICK_X].option_val = inputs->substickX;
+    LabOptions_AlterInputs[OPTINPUT_CSTICK_Y].option_val = inputs->substickY;
+    LabOptions_AlterInputs[OPTINPUT_TRIGGER].option_val  = inputs->trigger;
+    LabOptions_AlterInputs[OPTINPUT_A].option_val        = inputs->btn_a;
+    LabOptions_AlterInputs[OPTINPUT_B].option_val        = inputs->btn_b;
+    LabOptions_AlterInputs[OPTINPUT_X].option_val        = inputs->btn_x;
+    LabOptions_AlterInputs[OPTINPUT_Y].option_val        = inputs->btn_y;
+    LabOptions_AlterInputs[OPTINPUT_L].option_val        = inputs->btn_L;
+    LabOptions_AlterInputs[OPTINPUT_R].option_val        = inputs->btn_R;
+    LabOptions_AlterInputs[OPTINPUT_Z].option_val        = inputs->btn_Z;
+    return 1;
+}
+
+void Lab_ChangeInputs(GOBJ *menu_gobj, int value) {
+    RecInputs *inputs = Lab_GetAlteringInputs();
+    inputs->stickX    = LabOptions_AlterInputs[OPTINPUT_LSTICK_X].option_val;
+    inputs->stickY    = LabOptions_AlterInputs[OPTINPUT_LSTICK_Y].option_val;
+    inputs->substickX = LabOptions_AlterInputs[OPTINPUT_CSTICK_X].option_val;
+    inputs->substickY = LabOptions_AlterInputs[OPTINPUT_CSTICK_Y].option_val;
+    inputs->trigger   = LabOptions_AlterInputs[OPTINPUT_TRIGGER].option_val;
+    inputs->btn_a     = LabOptions_AlterInputs[OPTINPUT_A].option_val;
+    inputs->btn_b     = LabOptions_AlterInputs[OPTINPUT_B].option_val;
+    inputs->btn_x     = LabOptions_AlterInputs[OPTINPUT_X].option_val;
+    inputs->btn_y     = LabOptions_AlterInputs[OPTINPUT_Y].option_val;
+    inputs->btn_L     = LabOptions_AlterInputs[OPTINPUT_L].option_val;
+    inputs->btn_R     = LabOptions_AlterInputs[OPTINPUT_R].option_val;
+    inputs->btn_Z     = LabOptions_AlterInputs[OPTINPUT_Z].option_val;
+}
+
 void Lab_ChangeAdvCounterHitNumber(GOBJ *menu_gobj, int value) {
     // copy current hit number to all options 
     for (int i = 0; i < ADV_COUNTER_COUNT; ++i)
