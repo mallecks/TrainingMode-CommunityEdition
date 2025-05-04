@@ -18,7 +18,7 @@
     # Get Page ID in r3 for function call
     lbz r3, CurrentEventPage(REG_EventScorePointer)
     # Get event's score offset using function
-    rtocbl r12, TM_GetHighScorePageOffset
+    rtocbl r12, TM_GetPageEventOffset
     mr REG_PageID, 3
     #restore REG_EventID
     mr REG_EventID, 7

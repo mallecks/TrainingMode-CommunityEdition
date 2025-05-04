@@ -312,7 +312,7 @@ SpacieTech:
     .set TM_OnStartMelee, TM_OnBoot + 0x4
     .set TM_OnFileLoad, TM_OnStartMelee + 0x4
     .set TM_MessageDisplay, TM_OnFileLoad + 0x4
-    .set TM_GetHighScorePageOffset, TM_MessageDisplay + 0x4
+    .set TM_GetPageEventOffset, TM_MessageDisplay + 0x4
 
     # TmDt Data Pointers
     .set TM_Data, TM_tmFunction - 0x4

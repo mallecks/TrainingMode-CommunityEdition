@@ -101,10 +101,9 @@ You'll need to right click on the node -> Open As -> JOBJ in HSDRaw in order to 
     - src/event_data.c
       - Add a reference for the EventDesc from *_meta.h to an EventDesc array 
   - Update hardcoded ASM values
-    - TODO: Update code to avoid ASM hardcoding or at least avoid editing the files directly
+    - ####TODO: Update code to avoid ASM hardcoding or at least avoid editing the files directly
     - ASM/Global.s
-      - Increment <page>.NumOfEvents as appropriate
-      - Increment each event index below the new event
+      - Increment each event id index below the new event
     - ASM/training-mode/Custom Events/Custom Event Code - Rewrite.asm
       - Add a `.long 0` spacer word to the event jump list table for the appropriate page
 - If you want to create a new OSD (hard):
