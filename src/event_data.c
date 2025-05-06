@@ -1,6 +1,7 @@
 #include "events.h"
 #include "event_data.h"
 #include "../build/generated_include_meta.h"
+#include <stdint.h>
 ///////////////////////
 /// Page Defintions ///
 ///////////////////////
@@ -75,4 +76,12 @@ int GetPageEventOffset(int pageID) {
         eventIndex += (thisPage->eventNum) + 1;
     }
     return eventIndex;
+}
+
+int GetJumpTableOffset(int pageID, uint32_t jumpTableAddress, int eventID) {
+    int eventOffset = 0;
+    EventPage *thisPage = EventPages[pageID];
+    EventDesc *thisEvent = thisPage->events[eventID];
+    eventOffset = (thisEvent->jumpTableIndex) ;
+    return eventOffset;
 }

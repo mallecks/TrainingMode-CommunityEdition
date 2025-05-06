@@ -31,6 +31,7 @@ EventDesc EmptyEvent = {
     .eventName = "Empty Event\n",
     .eventDescription = "An empty event template\nfor development purposes.\n",
     .eventFile = "emptyevent",
+    .jumpTableIndex = -1,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

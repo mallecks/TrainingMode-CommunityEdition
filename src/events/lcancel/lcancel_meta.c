@@ -33,6 +33,7 @@ EventDesc LCancel = {
     .eventName = "L-Cancel Training\n",
     .eventDescription = "Practice L-Cancelling on\na stationary CPU.\n",
     .eventFile = "lcancel",
+    .jumpTableIndex = -1,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

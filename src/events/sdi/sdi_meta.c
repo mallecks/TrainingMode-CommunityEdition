@@ -30,6 +30,7 @@ EventDesc SDI = {
     .eventName = "SDI Training\n",
     .eventDescription = "Use Smash DI to escape\nFox's up-air!",
     .eventFile = 0,
+    .jumpTableIndex = 14,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = false,
     .use_savestates = false,

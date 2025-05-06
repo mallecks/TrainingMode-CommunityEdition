@@ -30,6 +30,7 @@ EventDesc GrabMash = {
     .eventName = "Grab Mash Training\n",
     .eventDescription = "Mash buttons to escape the grab\nas quickly as possible!\n",
     .eventFile = 0,
+    .jumpTableIndex = 6,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = false,
     .use_savestates = false,

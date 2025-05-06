@@ -30,6 +30,7 @@ EventDesc Ledgestall = {
     .eventName = "Under Fire\n",
     .eventDescription = "Ledgestall to remain\ninvincible while the lava rises!\n",
     .eventFile = 0,
+    .jumpTableIndex = 7,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = false,
     .use_savestates = false,

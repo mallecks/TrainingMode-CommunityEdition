@@ -79,6 +79,7 @@ typedef struct EventDesc
     char *eventName;
     char *eventDescription;
     char *eventFile;
+    int jumpTableIndex;
     char *eventCSSFile;
     u8 isSelectStage : 1;
     u8 use_savestates : 1;  // enables dpad left and right savestates

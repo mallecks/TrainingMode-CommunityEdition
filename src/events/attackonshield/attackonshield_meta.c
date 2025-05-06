@@ -30,6 +30,7 @@ EventDesc AttackOnShield = {
     .eventName = "Attack on Shield\n",
     .eventDescription = "Practice attacks on a shielding opponent\nPause to change their OoS option.\n",
     .eventFile = 0,
+    .jumpTableIndex = 2,
     .CSSType = SLCHRKIND_TRAINING,
     .isSelectStage = false,
     .use_savestates = false,

@@ -30,6 +30,7 @@ EventDesc Reversal = {
     .eventName = "Reversal Training\n",
     .eventDescription = "Practice OoS punishes! DPad left/right\nmoves characters closer and further apart.",
     .eventFile = 0,
+    .jumpTableIndex = 13,
     .CSSType = SLCHRKIND_TRAINING,
     .isSelectStage = true,
     .use_savestates = false,

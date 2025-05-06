@@ -30,6 +30,7 @@ EventDesc SideBSweet = {
     .eventName = "Side-B Sweetspot\n",
     .eventDescription = "Use a sweetspot Side-B to avoid Marth's\ndown-tilt and grab the ledge!",
     .eventFile = 0,
+    .jumpTableIndex = 16,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

@@ -30,6 +30,7 @@ EventDesc Multishine = {
     .eventName = "Shined Blind\n",
     .eventDescription = "How many shines can you\nperform in 10 seconds?",
     .eventFile = 0,
+    .jumpTableIndex = 10,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = false,
     .use_savestates = false,

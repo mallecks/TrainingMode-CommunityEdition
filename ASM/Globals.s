@@ -121,27 +121,35 @@
 
 ##################################
 
+    .macro TestJumpTable
+    bl AmsahTech
+    bl ArmadaShine
+    bl AttackOnShield
+    bl ComboTraining
+    bl Eggs
+    bl EscapeSheik
+    bl GrabMashOut
+    bl LedgeStall
+    bl Ledgetech
+    bl LedgetechCounter
+    bl Multishine
+    bl Powershield
+    bl Reaction
+    bl Reversal
+    bl SDITraining
+    bl ShieldDrop
+    bl SideBSweetspot
+    bl SlideOff
+    bl WaveshineSDI
+    .long -1
+    .endm
+
     # This macro will change the order of the pages
     # Only thing this macro doesn't affect is Load CSS + Preload CPU + high scores. Must change this manually.
     .macro EventJumpTable
     bl Minigames
     bl GeneralTech
     bl SpacieTech
-    .endm
-
-    .macro EventAmountPerPage
-Minigames:
-    .long Minigames.NumOfEvents
-    .align 2
-
-GeneralTech:
-    .long GeneralTech.NumOfEvents
-    .align 2
-
-SpacieTech:
-    .long SpacieTech.NumOfEvents
-    .align 2
-
     .endm
 
     .macro EventPlayableCharacters
@@ -314,6 +322,7 @@ SpacieTech:
     .set TM_OnFileLoad, TM_OnStartMelee + 0x4
     .set TM_MessageDisplay, TM_OnFileLoad + 0x4
     .set TM_GetPageEventOffset, TM_MessageDisplay + 0x4
+    .set TM_GetJumpTableOffset, TM_GetPageEventOffset+ 0x4
 
     # TmDt Data Pointers
     .set TM_Data, TM_tmFunction - 0x4

@@ -31,6 +31,7 @@ EventDesc Powershield = {
     .eventName = "Powershield Training\n",
     .eventDescription = "Powershield Falco's laser!",
     .eventFile = "powershield",
+    .jumpTableIndex = 11,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = false,
     .use_savestates = false,

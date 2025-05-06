@@ -22,3 +22,4 @@ OnStartMelee
 OnFileLoad
 Message_Display
 GetPageEventOffset
+GetJumpTableOffset

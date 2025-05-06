@@ -30,6 +30,7 @@ EventDesc ArmadaShine = {
     .eventName = "Edgeguard Firefox Training\n",
     .eventDescription = "Finish off the enemy Fox\nafter he uses Firefox!",
     .eventFile = 0,
+    .jumpTableIndex = 1,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

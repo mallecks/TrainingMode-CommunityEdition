@@ -31,6 +31,7 @@ EventDesc Combo = {
     .eventName = "Combo Training\n",
     .eventDescription = "L+DPad adjusts percent | DPadDown moves CPU\nDPad right/left saves and loads positions.",
     .eventFile = 0,
+    .jumpTableIndex = 3,
     .CSSType = SLCHRKIND_TRAINING,
     .isSelectStage = true,
     .use_savestates = false,

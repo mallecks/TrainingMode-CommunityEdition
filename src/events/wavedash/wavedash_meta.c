@@ -33,6 +33,7 @@ EventDesc Wavedash = {
     .eventName = "Wavedash Training\n",
     .eventDescription = "Practice  your wavedash,\na fundamental movement technique.\n",
     .eventFile = "wavedash",
+    .jumpTableIndex = -1,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

@@ -31,6 +31,7 @@ EventDesc Ledgedash = {
     .eventName = "Ledgedash Training\n",
     .eventDescription = "Practice Ledgedashes!\nUse D-Pad to change ledge.\n",
     .eventFile = "ledgedash",
+    .jumpTableIndex = -1,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

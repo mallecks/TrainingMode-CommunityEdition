@@ -30,6 +30,7 @@ EventDesc TechCounter = {
     .eventName = "Ledgetech Marth Counter\n",
     .eventDescription = "Practice ledge-teching\nMarth's counter!\n",
     .eventFile = 0,
+    .jumpTableIndex = 9,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

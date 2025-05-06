@@ -30,6 +30,7 @@ EventDesc ShieldDrop = {
     .eventName = "Shield Drop Training\n",
     .eventDescription = "Counter with a shield-drop aerial!\nDPad left/right moves players apart.",
     .eventFile = 0,
+    .jumpTableIndex = 15,
     .CSSType = SLCHRKIND_TRAINING,
     .isSelectStage = true,
     .use_savestates = false,

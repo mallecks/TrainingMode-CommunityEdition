@@ -32,6 +32,7 @@ EventDesc Lab = {
     .eventName = "Training Lab\n",
     .eventDescription = "Free practice with\ncomplete control.\n",
     .eventFile = "lab",
+    .jumpTableIndex = -1,
     .eventCSSFile = "TM/labCSS.dat",
     .CSSType = SLCHRKIND_TRAINING,
     .isSelectStage = true,

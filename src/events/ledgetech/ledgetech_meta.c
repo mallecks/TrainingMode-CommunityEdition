@@ -30,6 +30,7 @@ EventDesc Ledgetech = {
     .eventName = "Ledge-Tech Training\n",
     .eventDescription = "Practice ledge-teching\nFalco's down-smash!",
     .eventFile = 0,
+    .jumpTableIndex = 8,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

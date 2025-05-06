@@ -30,6 +30,7 @@ EventDesc AmsahTech = {
     .eventName = "Amsah-Tech Training\n",
     .eventDescription = "Taunt to have Marth Up-B,\nthen ASDI down and tech!\n",
     .eventFile = 0,
+    .jumpTableIndex = 0,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

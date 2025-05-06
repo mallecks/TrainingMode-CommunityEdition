@@ -30,6 +30,7 @@ EventDesc EscapeSheik = {
     .eventName = "Escape Sheik Techchase\n",
     .eventDescription = "Practice escaping the tech chase with a\nframe perfect shine or jab SDI!\n",
     .eventFile = 0,
+    .jumpTableIndex = 5,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = false,
     .use_savestates = false,
