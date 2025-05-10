@@ -3500,62 +3500,6 @@ GetLedgeCoordinates_Exit:
     blr
 
 ##########################################
-GetAngleBetweenPoints:
-    .set REG_arctan, 2
-    .set REG_Constants, 31
-
-    backup
-
-    # Get Constants
-    bl GetAngleBetweenPoints_Constants
-    mflr REG_Constants
-
-    # Get Values
-    lfs f1, 0x0(r3)
-    lfs f2, 0x4(r3)
-    lfs f3, 0x0(r4)
-    lfs f4, 0x4(r4)
-    # Get slope ydelta / xdelta
-    fsubs f5, f4, f2
-    fsubs f6, f3, f1
-    fdivs f1, f5, f6
-    # atan
-    branchl r12, 0x80022e68
-    fmr REG_arctan, f1
-
-# Ensure above 0 and below 6.28319
-GetAngleBetweenPoints_CheckIfOver0:
-    lfs f1, 0x0(REG_Constants)
-    fcmpo cr0, REG_arctan, f1
-    bge GetAngleBetweenPoints_CheckIfUnder360
-    # Add 180
-    lfs f1, 0x8(REG_Constants)
-    fadds REG_arctan, REG_arctan, f1
-    b GetAngleBetweenPoints_CheckIfOver0
-
-GetAngleBetweenPoints_CheckIfUnder360:
-    lfs f1, 0x4(REG_Constants)
-    fcmpo cr0, REG_arctan, f1
-    ble GetAngleBetweenPoints_Under360
-    # Add 180
-    lfs f1, 0x8(REG_Constants)
-    fsubs REG_arctan, REG_arctan, f1
-    b GetAngleBetweenPoints_CheckIfUnder360
-
-GetAngleBetweenPoints_Under360:
-    fmr f1, REG_arctan
-
-GetAngleBetweenPoints_Exit:
-    restore
-    blr
-
-GetAngleBetweenPoints_Constants:
-    blrl
-    .float 0
-    .float 6.28319
-    .float 3.14159
-
-##########################################
 EnterKnockback:
     backup
 

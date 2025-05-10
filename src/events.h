@@ -1,13 +1,14 @@
 #pragma once
 #include "../MexTK/mex.h"
 
-#define TM_VERSSHORT "TM-CE v1.2 d4"
-#define TM_VERSLONG "TM Community Edition v1.2 d4"
+#define TM_VERSSHORT "TM-CE v1.2 d5"
+#define TM_VERSLONG "TM Community Edition v1.2 d5"
 #define TM_DEBUG 0 // 0 = release (no logging), 1 = OSReport logs, 2 = onscreen logs
 #define EVENT_DATASIZE 512
 #define TM_FUNC -(50 * 4)
 #define MENU_MAXOPTION 9
 #define MENU_POPMAXOPTION 5
+#define countof(A) sizeof(A)/sizeof(*A)
 
 #define TMLOG(...) DevelopText_AddString(event_vars->db_console_text, __VA_ARGS__)
 
