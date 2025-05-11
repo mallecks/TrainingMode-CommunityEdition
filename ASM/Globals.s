@@ -4,9 +4,6 @@
     #######################
     ## Codeset Variables ##
     #######################
-    # Number of Pages
-    .set NumOfPages, 3 -1
-
     # Score Types
     .set KO, 0x0
     .set Time, 0x1

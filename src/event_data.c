@@ -46,7 +46,8 @@ static EventPage General_Page = {
 // Page 3 Events
 static EventDesc *Spacie_Events[] = {
     &TechCounter,
-    &ArmadaShine,
+    &FoxEdgeguard,
+    &FalcoEdgeguard,
     &SideBSweet,
     &EscapeSheik,
 };
@@ -79,9 +80,7 @@ int GetPageEventOffset(int pageID) {
 }
 
 int GetJumpTableOffset(int pageID, uint32_t jumpTableAddress, int eventID) {
-    int eventOffset = 0;
     EventPage *thisPage = EventPages[pageID];
     EventDesc *thisEvent = thisPage->events[eventID];
-    eventOffset = (thisEvent->jumpTableIndex) ;
-    return eventOffset;
+    return (thisEvent->jumpTableIndex);
 }
