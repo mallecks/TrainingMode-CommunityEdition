@@ -91,7 +91,8 @@ You'll need to right click on the node -> Open As -> JOBJ in HSDRaw in order to 
         - src/events/\*/\*_meta.c
       - c events
         - src/events/\*/\*.c
-        - src/events/\*/\*.h 
+        - src/events/\*/\*.h (optional)
+        - src/events/\*/\*.dat (optional)
       - asm events
         - src/events/\*/\*.asm
     - Template
@@ -100,12 +101,9 @@ You'll need to right click on the node -> Open As -> JOBJ in HSDRaw in order to 
   - Add event to menu
     - src/event_data.c
       - Add a reference for the EventDesc from *_meta.h to an EventDesc array 
-  - Update hardcoded ASM values
-    - ####TODO: Update code to avoid ASM hardcoding or at least avoid editing the files directly
-    - ASM/Global.s
-      - Increment each event id index below the new event
-    - ASM/training-mode/Custom Events/Custom Event Code - Rewrite.asm
-      - Add a `.long 0` spacer word to the event jump list table for the appropriate page
+  - Add ASM event to Jump Table
+    - Insert an entry into the ASMJumpTable and adjust all impacted events as needed.
+    - (If you add to the end of the list, it won't require editing any other events)
 - If you want to create a new OSD (hard):
     - You will need to know a lot of Power PC asm.
     - You will need to find the function that does the processing of the value you want to measure (reach out to me if you're not sure how to find this).

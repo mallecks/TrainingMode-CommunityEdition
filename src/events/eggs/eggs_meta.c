@@ -30,7 +30,7 @@ EventDesc Eggs = {
     .eventName = "Eggs-ercise\n",
     .eventDescription = "Break the eggs! Only strong hits will\nbreak them. DPad down = free practice.",
     .eventFile = 0,
-    .jumpTableIndex = 4,
+    .jumpTableIndex = 3,
     .CSSType = SLCHRKIND_EVENT,
     .isSelectStage = true,
     .use_savestates = false,

@@ -122,9 +122,8 @@
 
 ##################################
 
-    .macro TestJumpTable
+    .macro ASMJumpTable
     bl AmsahTech
-    bl ArmadaShine
     bl AttackOnShield
     bl ComboTraining
     bl Eggs

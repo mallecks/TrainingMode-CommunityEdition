@@ -95,7 +95,7 @@ LegacyEvent:
     bl SkipPageList
 
     ##### Page List #######
-    TestJumpTable
+    ASMJumpTable
 
 SkipPageList:
     # Get Page Jump Table
