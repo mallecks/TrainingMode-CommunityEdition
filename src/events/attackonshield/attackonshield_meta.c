@@ -32,6 +32,7 @@ EventDesc AttackOnShield = {
     .eventFile = 0,
     .jumpTableIndex = 1,
     .CSSType = SLCHRKIND_TRAINING,
+    .CSSList = NULL,
     .isSelectStage = false,
     .use_savestates = false,
     .disable_hazards = true,

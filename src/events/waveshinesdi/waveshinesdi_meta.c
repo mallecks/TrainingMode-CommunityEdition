@@ -1,5 +1,22 @@
 #include "../../events.h"
 
+static const EventCharList WaveshineSDI_EventCharList = {
+    .values = {
+        [DOCTOR_MARIO] = 1,
+        [MARIO] = 1,
+        [BOWSER] = 1,
+        [PEACH] = 1,
+        [YOSHI] = 1,
+        [DONKEY_KONG] = 1,
+        [CAPTAIN_FALCON] = 1,
+        [GANONDORF] = 1,
+        [NESS] = 1,
+        [SAMUS] = 1,
+        [ZELDA] = 1,
+        [LINK] = 1
+    }
+};
+
 static EventMatchData WaveshineSDI_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -32,6 +49,7 @@ EventDesc WaveshineSDI = {
     .eventFile = 0,
     .jumpTableIndex = 17,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = &WaveshineSDI_EventCharList,
     .isSelectStage = false,
     .use_savestates = false,
     .disable_hazards = true,

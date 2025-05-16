@@ -1,5 +1,15 @@
 #include "../../events.h"
 
+static const EventCharList EscapeSheik_EventCharList = {
+    .values = {
+        [YOSHI] = 1,
+        [CAPTAIN_FALCON] = 1,
+        [FALCO] = 1,
+        [FOX] = 1,
+        [PIKACHU] = 1
+    }
+};
+
 static EventMatchData EscapeSheik_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -32,6 +42,7 @@ EventDesc EscapeSheik = {
     .eventFile = 0,
     .jumpTableIndex = 4,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = &EscapeSheik_EventCharList,
     .isSelectStage = false,
     .use_savestates = false,
     .disable_hazards = true,

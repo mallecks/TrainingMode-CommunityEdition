@@ -35,6 +35,7 @@ EventDesc Lab = {
     .jumpTableIndex = -1,
     .eventCSSFile = "TM/labCSS.dat",
     .CSSType = SLCHRKIND_TRAINING,
+    .CSSList = NULL,
     .isSelectStage = true,
     .use_savestates = false,
     .disable_hazards = true,

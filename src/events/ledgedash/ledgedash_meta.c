@@ -33,6 +33,7 @@ EventDesc Ledgedash = {
     .eventFile = "ledgedash",
     .jumpTableIndex = -1,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = NULL,
     .isSelectStage = true,
     .use_savestates = false,
     .disable_hazards = true,

@@ -32,6 +32,7 @@ EventDesc ShieldDrop = {
     .eventFile = 0,
     .jumpTableIndex = 14,
     .CSSType = SLCHRKIND_TRAINING,
+    .CSSList = NULL,
     .isSelectStage = true,
     .use_savestates = false,
     .disable_hazards = true,

@@ -381,11 +381,6 @@ Eggs_OnCollision:
     load r4, SceneController
     lbz r4, Scene.CurrentMajor(r4)
     cmpwi r4, Scene.EventMode
-    bne Eggs_OnCollisionOriginalFunction
-    # Now check if its eggs-ercise
-    lwz r4, MemcardData(r13)
-    lbz r4, 0x0535(r4)                                  # get event ID
-    cmpwi r4, Event_Eggs
     beq Eggs_OnCollisionStart
 
 Eggs_OnCollisionOriginalFunction:

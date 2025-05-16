@@ -1,5 +1,12 @@
 #include "../../events.h"
 
+static const EventCharList Ledgetech_EventCharList = {
+    .values = {
+        [FALCO] = 1,
+        [FOX] = 1
+    }
+};
+
 static EventMatchData Ledgetech_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -32,6 +39,7 @@ EventDesc Ledgetech = {
     .eventFile = 0,
     .jumpTableIndex = 7,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = &Ledgetech_EventCharList,
     .isSelectStage = true,
     .use_savestates = false,
     .disable_hazards = true,

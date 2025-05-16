@@ -1,5 +1,12 @@
 #include "../../events.h"
 
+static const EventCharList Multishine_EventCharList = {
+    .values = {
+        [FALCO] = 1,
+        [FOX] = 1
+    }
+};
+
 static EventMatchData Multishine_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -32,6 +39,7 @@ EventDesc Multishine = {
     .eventFile = 0,
     .jumpTableIndex = 9,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = &Multishine_EventCharList,
     .isSelectStage = false,
     .use_savestates = false,
     .disable_hazards = true,
@@ -41,3 +49,4 @@ EventDesc Multishine = {
     .matchData = &Multishine_MatchData,
     .defaultOSD = 0xFFFFFFFF,
 };
+

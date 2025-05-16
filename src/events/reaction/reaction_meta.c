@@ -32,6 +32,7 @@ EventDesc Reaction = {
     .eventFile = 0,
     .jumpTableIndex = 11,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = NULL,
     .isSelectStage = false,
     .use_savestates = false,
     .disable_hazards = true,

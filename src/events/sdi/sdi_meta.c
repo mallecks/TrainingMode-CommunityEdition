@@ -32,6 +32,7 @@ EventDesc SDI = {
     .eventFile = 0,
     .jumpTableIndex = 13,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = NULL,
     .isSelectStage = false,
     .use_savestates = false,
     .disable_hazards = true,

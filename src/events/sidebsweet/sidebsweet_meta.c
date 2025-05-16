@@ -1,5 +1,12 @@
 #include "../../events.h"
 
+static const EventCharList SideBSweet_EventCharList = {
+    .values = {
+        [FALCO] = 1,
+        [FOX] = 1
+    }
+};
+
 static EventMatchData SideBSweet_MatchData = {
     .timer = MATCH_TIMER_COUNTUP,
     .matchType = MATCH_MATCHTYPE_TIME,
@@ -32,6 +39,7 @@ EventDesc SideBSweet = {
     .eventFile = 0,
     .jumpTableIndex = 15,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = &SideBSweet,
     .isSelectStage = true,
     .use_savestates = false,
     .disable_hazards = true,

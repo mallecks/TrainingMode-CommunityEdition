@@ -32,6 +32,7 @@ EventDesc TechCounter = {
     .eventFile = 0,
     .jumpTableIndex = 8,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = NULL,
     .isSelectStage = true,
     .use_savestates = false,
     .disable_hazards = true,

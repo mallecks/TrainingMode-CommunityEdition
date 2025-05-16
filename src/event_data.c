@@ -80,7 +80,27 @@ int GetPageEventOffset(int pageID) {
 }
 
 int GetJumpTableOffset(int pageID, uint32_t jumpTableAddress, int eventID) {
+    // jumpTableAddress is in r4 and is passed through without being used to simply the asm
     EventPage *thisPage = EventPages[pageID];
     EventDesc *thisEvent = thisPage->events[eventID];
     return (thisEvent->jumpTableIndex);
+}
+
+long* GetEventCharList(int eventID,int pageID) {
+    EventPage *thisPage = EventPages[pageID];
+    EventDesc *thisEvent = thisPage->events[eventID];
+    EventCharList *thisEventCharList = thisEvent->CSSList;
+
+    static long mask = 0;
+    mask = 0;
+
+    if (!thisEventCharList) return (long*)-1;
+
+    for (int i = 0; i < 25; i++) {
+      if (thisEventCharList->values[i]){
+          mask |= CSSID_TABLE[i];
+      }
+    }
+
+    return &mask;
 }

@@ -32,6 +32,7 @@ EventDesc Eggs = {
     .eventFile = 0,
     .jumpTableIndex = 3,
     .CSSType = SLCHRKIND_EVENT,
+    .CSSList = NULL,
     .isSelectStage = true,
     .use_savestates = false,
     .disable_hazards = true,
